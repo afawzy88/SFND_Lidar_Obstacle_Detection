@@ -198,10 +198,10 @@ std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> Clustering(pcl::PointCloud<pcl
 void cityBlockStream(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointClouds<pcl::PointXYZI> pointProcessorI, pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
 	/* Filtering pointcloud; Downsampling and Region of Interest*/
-	inputCloud = pointProcessorI.FilterCloud(inputCloud, 0.3, Eigen::Vector4f(-10,-5,-2,1), Eigen::Vector4f(30,8,1,1));
+	inputCloud = pointProcessorI.FilterCloud(inputCloud, 0.2, Eigen::Vector4f(-10,-5,-2,1), Eigen::Vector4f(30,7,1,1));
 	
 	/* Segmentation using RANSAC algorithm coded from scratch */
-	std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentedCloud = Segmentation(inputCloud, 25, 0.3);
+	std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentedCloud = Segmentation(inputCloud, 30, 0.2);
 
 	//renderPointCloud(viewer,segmentedCloud.first,"Obstacles",Color(1,0,0));
   	renderPointCloud(viewer,segmentedCloud.second,"Ground Plane",Color(0,1,0));
@@ -242,7 +242,7 @@ int main (int argc, char** argv)
 	std::cout << "starting enviroment" << std::endl;
 
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
-    CameraAngle setAngle = XY;
+    CameraAngle setAngle = FPS;
     initCamera(setAngle, viewer);
   
 	/* Point processor instantiation in stack */
