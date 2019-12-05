@@ -198,7 +198,7 @@ std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> Clustering(pcl::PointCloud<pcl
 void cityBlockStream(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointClouds<pcl::PointXYZI> pointProcessorI, pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
 	/* Filtering pointcloud; Downsampling and Region of Interest*/
-	inputCloud = pointProcessorI.FilterCloud(inputCloud, 0.2, Eigen::Vector4f(-10,-5,-2,1), Eigen::Vector4f(30,7,1,1));
+	inputCloud = pointProcessorI.FilterCloud(inputCloud, 0.3, Eigen::Vector4f(-10,-5,-2,1), Eigen::Vector4f(30,7,1,1));
 	
 	/* Segmentation using RANSAC algorithm coded from scratch */
 	std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentedCloud = Segmentation(inputCloud, 30, 0.2);
@@ -217,7 +217,7 @@ void cityBlockStream(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPoin
 	}
 
 	/* Euclidean clustering coded from scratch */
-	std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = Clustering(obstCloud, tree, 0.53, 10, 500);
+	std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = Clustering(obstCloud, tree, 0.53, 7, 500);
 
 	/* Rendering output clusters */
 	int clusterId = 0;
